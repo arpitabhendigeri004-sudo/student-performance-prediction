@@ -1,0 +1,27 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+import pickle
+
+# Sample dataset (you can replace later)
+data = {
+    "duration": [5, 10, 50, 60],
+    "packet_size": [100, 200, 1200, 1500],
+    "failed_logins": [0, 1, 5, 7],
+    "request_rate": [10, 20, 300, 400],
+    "attack": [0, 0, 1, 1]
+}
+
+df = pd.DataFrame(data)
+
+X = df.drop("attack", axis=1)
+y = df["attack"]
+
+model = LogisticRegression()
+model.fit(X, y)
+
+# SAVE MODEL
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+print("✅ Model saved successfully")
